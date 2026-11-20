@@ -3,20 +3,81 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cover Snap</title>
+<title>Vice Cover Studio</title>
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 <main class="app">
-  <section class="controls">
-    <h1>Cover Snap</h1>
-    <p>A photo and a caption, made into a square cover.</p>
-    <label>Photo <input id="photo" type="file" accept="image/*"></label>
-    <label>Caption <input id="caption" type="text" maxlength="40" value="Sunset Heist"></label>
-    <button id="export" type="button">Export PNG 1080 x 1080</button>
-    <p id="status" role="status"></p>
+  <aside class="controls">
+    <header class="brand">
+      <p class="kicker">Vice Cover Studio</p>
+      <h1>Make the cover.<br><span>Be the cover.</span></h1>
+      <p class="lede">Drop in your photos, slice them into a multi-panel poster, grade it hot, stamp the title, export the PNG.</p>
+    </header>
+
+    <section class="group">
+      <h2>Photos</h2>
+      <label class="file-btn">Add photos
+        <input id="photo" type="file" accept="image/*" multiple>
+      </label>
+      <div class="samples" role="group" aria-label="Sample photos">
+        <button type="button" data-sample="pier">Pier</button>
+        <button type="button" data-sample="boulevard">Boulevard</button>
+        <button type="button" data-sample="neon-mile">Neon Mile</button>
+      </div>
+      <p id="photo-count" class="hint">No photos yet — try a sample.</p>
+      <label class="toggle"><input id="one-photo" type="checkbox"> One photo across all panels</label>
+    </section>
+
+    <section class="group">
+      <h2>Layout &amp; grade</h2>
+      <label>Layout
+        <select id="layout"></select>
+      </label>
+      <label>Colour grade
+        <select id="grade"></select>
+      </label>
+      <label>Output size
+        <select id="size">
+          <option value="1080x1080">Square · 1080 × 1080</option>
+          <option value="1080x1350">Portrait · 1080 × 1350</option>
+          <option value="1920x1080">Landscape · 1920 × 1080</option>
+        </select>
+      </label>
+    </section>
+
+    <section class="group">
+      <h2>Lettering</h2>
+      <label>Title
+        <input id="title" type="text" maxlength="26" value="VICE HEAT">
+      </label>
+      <label>Subtitle
+        <input id="subtitle" type="text" maxlength="44" value="One last score in Leonida">
+      </label>
+    </section>
+
+    <section class="group">
+      <h2>Selected panel</h2>
+      <label>Panel
+        <select id="panel-select"></select>
+      </label>
+      <label>Photo in panel
+        <select id="panel-photo"></select>
+      </label>
+      <label>Zoom <span id="zoom-value">1.00×</span>
+        <input id="zoom" type="range" min="1" max="2.6" step="0.01" value="1">
+      </label>
+      <p class="hint">Tip: click a panel on the cover, drag to pan it, scroll to zoom.</p>
+    </section>
+
+    <button id="export" type="button" class="export-btn">Export PNG</button>
+    <p id="status" role="status" class="status"></p>
+  </aside>
+
+  <section class="stage">
+    <canvas id="cover" width="1080" height="1080" aria-label="Live cover preview"></canvas>
+    <p class="stage-hint">Live preview — drag a panel to reframe it. Drop image files anywhere on the cover.</p>
   </section>
-  <canvas id="cover" width="1080" height="1080" aria-label="The cover"></canvas>
 </main>
 <script type="module" src="./src/main.js"></script>
 </body>

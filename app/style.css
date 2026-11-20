@@ -1,12 +1,79 @@
-html, body { margin: 0; height: 100%; background: #f2f0f4; color: #1d1b22; font: 15px/1.4 system-ui, sans-serif; }
-.app { display: flex; gap: 32px; align-items: center; justify-content: center; height: 100%; padding: 24px; box-sizing: border-box; }
-.controls { display: flex; flex-direction: column; gap: 14px; width: 280px; }
-.controls h1 { margin: 0; font-size: 28px; }
-.controls p { margin: 0; color: #5c5866; }
-label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; }
-input[type=text] { font: inherit; padding: 8px; border: 1px solid #c9c4d1; border-radius: 6px; }
-button { font: inherit; font-weight: 700; padding: 10px; border: 0; border-radius: 6px; background: #1d1b22; color: #fff; cursor: pointer; }
-canvas { width: min(70vh, 60vw); height: min(70vh, 60vw); box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); }
-body.shot-cover .controls { display: none; }
-body.shot-cover .app { padding: 0; }
-body.shot-cover canvas { width: 100vw; height: 100vh; box-shadow: none; }
+/* Vice Cover Studio — dark neon editor theme. */
+:root {
+  --ink: #0d0618;
+  --panel: #1a0f2e;
+  --panel-2: #241443;
+  --line: #3d2566;
+  --text: #f6efff;
+  --muted: #b9a8d9;
+  --pink: #ff2d78;
+  --orange: #ff7a1a;
+  --gold: #ffd23e;
+  --teal: #19e3c2;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; }
+body {
+  background:
+    radial-gradient(900px 500px at 85% -10%, rgba(255, 45, 120, 0.28), transparent 60%),
+    radial-gradient(800px 600px at -10% 110%, rgba(25, 227, 194, 0.16), transparent 55%),
+    linear-gradient(160deg, #150826, var(--ink) 55%, #07030f);
+  color: var(--text);
+  font: 15px/1.5 "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+}
+.app { display: flex; gap: 28px; align-items: flex-start; max-width: 1460px; margin: 0 auto; padding: 26px; }
+.controls {
+  width: 322px; flex: 0 0 322px; display: flex; flex-direction: column; gap: 16px;
+  background: linear-gradient(180deg, rgba(36, 20, 67, 0.92), rgba(20, 10, 40, 0.94));
+  border: 1px solid var(--line); border-radius: 18px; padding: 22px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+}
+.kicker { margin: 0; letter-spacing: 0.32em; text-transform: uppercase; font-size: 11px; font-weight: 800; color: var(--gold); }
+.brand h1 { margin: 6px 0 8px; font-size: 31px; line-height: 1.04; font-style: italic; font-weight: 900; text-transform: uppercase; }
+.brand h1 span { background: linear-gradient(90deg, var(--orange), var(--pink)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lede { margin: 0; color: var(--muted); font-size: 13.5px; }
+.group { border-top: 1px solid var(--line); padding-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+.group h2 { margin: 0; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--teal); }
+label { display: flex; flex-direction: column; gap: 5px; font-weight: 600; font-size: 13.5px; }
+input[type="text"], select {
+  font: inherit; color: var(--text); background: #0f0820; border: 1px solid var(--line);
+  border-radius: 9px; padding: 8px 10px; outline: none;
+}
+input[type="text"]:focus, select:focus { border-color: var(--pink); box-shadow: 0 0 0 3px rgba(255, 45, 120, 0.25); }
+input[type="range"] { accent-color: var(--pink); width: 100%; }
+.file-btn {
+  align-items: center; text-align: center; cursor: pointer; padding: 10px; border-radius: 10px;
+  background: linear-gradient(90deg, var(--orange), var(--pink)); color: #fff; font-weight: 800;
+}
+.file-btn input { display: none; }
+.samples { display: flex; gap: 8px; }
+.samples button, .export-btn { font: inherit; cursor: pointer; }
+.samples button {
+  flex: 1; padding: 7px 4px; border-radius: 8px; border: 1px solid var(--line);
+  background: var(--panel-2); color: var(--text); font-weight: 700; font-size: 13px;
+}
+.samples button:hover { border-color: var(--gold); color: var(--gold); }
+.toggle { flex-direction: row; align-items: center; gap: 8px; font-weight: 600; }
+.toggle input { accent-color: var(--pink); width: 17px; height: 17px; }
+.hint { margin: 0; color: var(--muted); font-size: 12.5px; }
+.export-btn {
+  border: 0; border-radius: 12px; padding: 13px; font-weight: 900; font-size: 16px; color: #1c0b00;
+  background: linear-gradient(90deg, var(--gold), var(--orange) 55%, var(--pink));
+  box-shadow: 0 10px 26px rgba(255, 45, 120, 0.35); text-transform: uppercase; letter-spacing: 0.06em;
+}
+.export-btn:hover { filter: brightness(1.08); }
+.status { margin: 0; min-height: 20px; color: var(--gold); font-size: 13px; font-weight: 600; }
+.stage { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 10px; min-width: 0; }
+.stage canvas {
+  max-width: 100%; max-height: calc(100vh - 110px); width: auto; height: auto;
+  border-radius: 6px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  cursor: grab; touch-action: none; background: #160826;
+}
+.stage canvas:active { cursor: grabbing; }
+.stage-hint { margin: 0; color: var(--muted); font-size: 13px; }
+/* Screenshot scenes */
+body.shot-cover { background: #000; }
+body.shot-cover .controls, body.shot-cover .stage-hint { display: none; }
+body.shot-cover .app { padding: 0; max-width: none; }
+body.shot-cover .stage { padding: 0; }
+body.shot-cover canvas { width: 100vw; height: 100vh; max-height: none; border-radius: 0; box-shadow: none; cursor: default; }
